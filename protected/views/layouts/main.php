@@ -24,7 +24,7 @@
         <div class="container" id="page">
 
             <div id="header">
-                <div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+                <div id="logo"><img style="width: 100%;height: 100px" src="images/logo.jpg" /></div>
             </div>
 
             <div id="mainmenu">
@@ -33,16 +33,15 @@
                     'items' => array(
                         array('label' => 'Trang chủ', 'url' => array('/site/index')),
                         array('label' => 'Quản lý sinh viên', 'url' => array('/student/index', 'view' => 'student')),
-                        array('label' => 'Quản lý lớp', 'url' => array('/classroom/index')), 
+                        array('label' => 'Quản lý lớp', 'url' => array('/classroom/index')),
                         array('label' => 'Quản lý khoa', 'url' => array('/department/index')),
-                        array('label' => 'Quản lý môn học', 'url' => array('/subject/index')), 
-                        array('label' => 'Quản lý kết quả', 'url' => array('/result/index')), 
+                        array('label' => 'Quản lý môn học', 'url' => array('/subject/index')),
+                        array('label' => 'Quản lý kết quả', 'url' => array('/result/index')),
                         array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
                     ),
                 ));
                 ?>
             </div><!-- mainmenu -->
-
             <?php if (isset($this->breadcrumbs)): ?>
                 <?php
                 $this->widget('zii.widgets.CBreadcrumbs', array(

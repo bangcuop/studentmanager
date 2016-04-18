@@ -160,7 +160,7 @@ class ClassroomController extends Controller {
         }
     }
 
-    public function getDepartmentNameById($data, $row) {
+    public function getDepartmentNameById($data) {
         $model = Department::model()->findByPk($data->departmentId);
         return $model ->departmentName;
     }

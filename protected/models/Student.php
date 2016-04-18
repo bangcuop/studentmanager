@@ -35,12 +35,15 @@ class Student extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('studentId', 'required'),
+            array('studentCode', 'required'),
+            array('studentName', 'required'),
+            array('classId', 'required'),
+            array('adress', 'required'),
             array('studentId, classId, student_check, student_del', 'numerical', 'integerOnly' => true),
             array('studentCode, studentName, adress, birthDay', 'length', 'max' => 45),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('studentId, studentCode, studentName, class.className, adress, birthDay, student_check, student_del', 'safe', 'on' => 'search'),
+            array('studentCode, studentName, className, adress, birthDay', 'safe', 'on' => 'search'),
         );
     }
 
@@ -67,8 +70,6 @@ class Student extends CActiveRecord {
             'className' => 'Class Name',
             'adress' => 'Adress',
             'birthDay' => 'Birth Day',
-            'student_check' => 'Student Check',
-            'student_del' => 'Student Del',
         );
     }
 
@@ -88,15 +89,13 @@ class Student extends CActiveRecord {
         // @todo Please modify the following code to remove attributes that should not be searched.
 
         $criteria = new CDbCriteria;
-
-        $criteria->compare('studentId', $this->studentId);
-        $criteria->compare('studentCode', $this->studentCode, true);
-        $criteria->compare('studentName', $this->studentName, true);
-        $criteria->compare('className', $this->className);
-        $criteria->compare('adress', $this->adress, true);
-        $criteria->compare('birthDay', $this->birthDay, true);
-        $criteria->compare('student_check', $this->student_check);
-        $criteria->compare('student_del', $this->student_del);
+        $criteria->join = 'INNER JOIN Classroom c ON c.classId=t.classId';
+        $criteria->compare('t.studentId', $this->studentId);
+        $criteria->compare('t.studentCode', $this->studentCode, true);
+        $criteria->compare('t.studentName', $this->studentName, true);
+        $criteria->compare('c.className', $this->className, true);
+        $criteria->compare('t.adress', $this->adress, true);
+        $criteria->compare('t.birthDay', $this->birthDay, true);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

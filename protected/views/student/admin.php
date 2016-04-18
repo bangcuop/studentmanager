@@ -2,14 +2,14 @@
 /* @var $this StudentController */
 /* @var $model Student */
 
-$this->breadcrumbs=array(
-	'Students'=>array('index'),
-	'Manage',
+$this->breadcrumbs = array(
+    'Students' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'List Student', 'url'=>array('index')),
-	array('label'=>'Create Student', 'url'=>array('create')),
+$this->menu = array(
+    array('label' => 'List Student', 'url' => array('index')),
+    array('label' => 'Create Student', 'url' => array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,29 +27,33 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Quản lý sinh viên</h1>
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Advanced Search', '#', array('class' => 'search-button')); ?>
 <div class="search-form" style="display:none">
-<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
+    <?php
+    $this->renderPartial('_search', array(
+        'model' => $model,
+    ));
+    ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'student-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'studentCode',
-		'studentName',
-		'classId',
-		'adress',
-		'birthDay',
-		/*
-		'student_check',
-		'student_del',
-		*/
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
-)); ?>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'student-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'studentCode',
+        'studentName',
+         array(
+            'name' => 'className',
+            //call the method 'gridDataColumn' from the controller
+            'value' => array($this, 'getClassNameById'),
+        ),
+        'adress',
+        'birthDay',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
+));
+?>

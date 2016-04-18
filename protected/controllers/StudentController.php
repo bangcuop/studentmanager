@@ -49,7 +49,7 @@ class StudentController extends Controller {
      */
     public function actionView($id) {
         $this->render('view', array(
-            'model' =>$this ->loadModel($id),
+            'model' => $this->loadModel($id),
         ));
     }
 
@@ -156,6 +156,11 @@ class StudentController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+    
+     public function getClassNameById($data) {
+        $model = Classroom::model()->findByPk($data->classId);
+        return $model ->className;
     }
 
 }
